@@ -6,6 +6,14 @@
 
 ```
 sudo apt install speedtest-cli
+sudo apt install jq
+```
+
+`Infos mit: speedtest --h`
+
+```
+# probier mal das aus:
+speedtest --json | jq
 ```
 ```
 # Die Ausgabe von speedtest in der Variable result speichern
