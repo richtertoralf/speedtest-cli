@@ -1,6 +1,7 @@
 # speedtest-cli
 >speedtest-cli ist ein Befehlszeilentool zur Durchführung von Geschwindigkeitstests für Ihre Internetverbindung.
->Mit speedtest-cli können Sie die Download- und Upload-Geschwindigkeiten sowie die Ping-Zeiten zu verschiedenen Servern messen.
+>Mit speedtest-cli können Sie die Download- und Upload-Geschwindigkeiten
+>sowie die Ping-Zeiten zu verschiedenen Servern messen.
 >Es handelt sich um eine Befehlszeilenversion des beliebten Speedtest-Tools von Ookla.
 
 
@@ -9,7 +10,16 @@ sudo apt install speedtest-cli
 sudo apt install jq
 ```
 
-`Infos mit: speedtest --h`
+>jq ist ein leistungsfähiges Befehlszeilentool und eine Programmiersprache,
+>die speziell für die Verarbeitung und Abfrage von JSON-Daten entwickelt wurde.
+>Der Name "jq" steht für "JSON Query".
+>Mit jq können Sie JSON-Daten analysieren, filtern, transformieren und abfragen.
+>Es ermöglicht Ihnen, komplexe Operationen auf JSON-Strukturen auszuführen,
+>JSON-Daten zu durchsuchen und Teile davon zu extrahieren.
+>jq ist äußerst nützlich, wenn Sie mit JSON-Dateien oder -Daten arbeiten,
+>z. B. bei der Verarbeitung von API-Antworten oder dem Analysieren von Daten in Skripten.
+
+Infos anzeigen ,mit :  `speedtest --h`
 
 # json
 ```
@@ -38,6 +48,7 @@ echo "Upload: ${values[upload]} Mbps"
 echo "Download: ${values[download]} Mbps"
 ```
 # csv
+Manchmal reicht aber auch eine einfache csv-Liste :-)  
 ```
 speedtest --csv-header
 # Ausgabe:
@@ -73,4 +84,11 @@ done
 echo "Ping: ${values[Ping]} ms"
 echo "Upload: ${values[Upload]} Mbps"
 echo "Download: ${values[Download]} Mbps"
+```
+```
+# runden
+rund_Download=$(echo "${values[Download]}" | awk '{printf "%.2f", $0}')
+echo "Gerundeter Download: $rund_Download Mbps"
+# Ausgabe, z.B.:
+Gerundeter Download: 51425837.62 Mbps
 ```
