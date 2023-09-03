@@ -11,7 +11,9 @@ sudo apt install jq
 
 `Infos mit: speedtest --h`
 
+# json
 ```
+json
 # probier mal das aus:
 speedtest --json | jq
 ```
@@ -34,4 +36,41 @@ declare -p values
 echo "Ping: ${values[ping]} ms"
 echo "Upload: ${values[upload]} Mbps"
 echo "Download: ${values[download]} Mbps"
+```
+# csv
+```
+speedtest --csv-header
+# Ausgabe:
+Server ID,Sponsor,Server Name,Timestamp,Distance,Ping,Download,Upload,Share,IP Address
+
+speedtest --csv
+# Ausgabe:
+55374,Wifiweb s.r.l.,Bassano del Grappa,2023-09-03T21:15:29.280359Z,636.8788953521096,58.922,44309018.861549765,6960602.171301725,,49.12.204.192
+
+```
+```
+# CSV-Header von speedtest in einer Variable speichern
+csv_header=$(speedtest --csv-header)
+
+# CSV-Ausgabe von speedtest in einer Variable speichern
+csv_output=$(speedtest --csv)
+
+# Ein assoziatives Array erstellen
+declare -A values
+
+# Die Namen der Wertepaare aus der Header-Zeile extrahieren und in ein Array setzen
+IFS=',' read -ra headers <<< "$csv_header"
+
+# Die Werte aus der CSV-Ausgabe extrahieren und in das assoziative Array setzen
+IFS=',' read -ra data <<< "$csv_output"
+
+# Die Werte mit den zugehörigen Header-Namen in das assoziative Array setzen
+for ((i = 0; i < ${#headers[@]}; i++)); do
+  values["${headers[$i]}"]="${data[$i]}"
+done
+
+# Die Werte im assoziativen Array anzeigen, z.B.:
+echo "Ping: ${values[Ping]} ms"
+echo "Upload: ${values[Upload]} Mbps"
+echo "Download: ${values[Download]} Mbps"
 ```
